@@ -38,7 +38,7 @@
         if (x.target.classList.contains('paused')) {
             // just some css to adjust the backgrounds
             x.target.className = "input-button play playing"
-            x.target.style.backgroundImage = `url("../resources/play-svgrepo-com.svg")`
+            x.target.style.backgroundImage = `url("src/resources/play-svgrepo-com.svg")`
             x.target.style.backgroundSize = 'contain'
             x.target.style.backgroundPositionX = '2px'
             isPaused = true
@@ -46,7 +46,7 @@
         } else {
             // just some css to adjust the backgrounds
             x.target.className = "input-button play paused"
-            x.target.style.backgroundImage = `url("../resources/pause-svgrepo-com.svg")`
+            x.target.style.backgroundImage = `url("src/resources/pause-svgrepo-com.svg")`
             x.target.style.backgroundSize = '30px'
             x.target.style.backgroundPositionX = 'center'
             isPaused = false
