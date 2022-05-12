@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="public/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="public/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="public/favicon-16x16.png">
+    <meta name="theme-color" content="#000">
+    <link rel="manifest" href="public/site.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Radio+Canada:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../src/css/style.css">
+    <title>Custom Counter</title>
+</head>
+
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <main>
+        <input type="number" id="counter" class="counter" value="0">
+        <div class="inputs">
+            <input class="input-button color" type="color" name="text color" id="input-color">
+            <input class="input-button" type="color" name="background" id="input-bg" value="#67d765">
+            <div class="nps">
+                <button class="input-button icon" id="input-increase">+</button>
+                <p class="input-nps" id="input-nps" value="1">0ps</p>
+                <button class="input-button icon" id="input-decrease">-</button>
+            </div>
+            <button class="input-button play paused" id="input-pause"></button>
+            <input class="input-button max" type="number" placeholder="MAX" id="input-max">
+        </div>
+    </main>
+    <script src="../src/js/script.js"></script>
+</body>
+
+</html>
