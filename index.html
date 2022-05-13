@@ -21,8 +21,8 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <main>
         <input type="number" id="counter" class="counter" value="0">
-        <div class="inputs">
-            <select class="input-button font" type="color" name="text font" id="input-font">
+        <div class="input__container">
+            <select class="input--button expansible" type="color" name="text font" id="input-font">
                 <option value="Arial"> Arial </option>
                 <option value="Arial Black"> Arial Black </option>
                 <option value="Verdana"> Verdana </option>
@@ -38,18 +38,18 @@
                 <option value="Monospace"> Monospace </option>
                 <option value="Comic Sans MS"> Comic Sans MS </option>
             </select>
-            <input class="input-button color" type="color" name="text color" id="input-color">
-            <input class="input-button" type="color" name="background" id="input-bg" value="#67d765">
+            <input class="input--button color" type="color" name="text color" id="input-color">
+            <input class="input--button" type="color" name="background color" id="input-bg" value="#67d765">
             <div class="nps">
-                <button class="input-button icon" id="input-increase">+</button>
+                <button class="input--button icon" id="input-increase">+</button>
                 <div class="input-nps container">
-                    <input class="input-nps" id="input-nps">
+                    <input type="number" class="input-nps" id="input-nps">
                     <span>nps</span>
                 </div>
-                <button class="input-button icon" id="input-decrease">-</button>
+                <button class="input--button icon" id="input-decrease">-</button>
             </div>
-            <button class="input-button play paused" id="input-pause"></button>
-            <input class="input-button max" type="number" placeholder="MAX" id="input-max">
+            <button class="input--button play paused" id="input-pause"></button>
+            <input class="input--button max expansible" type="number" placeholder="MAX" id="input-max">
         </div>
     </main>
     <script src="src/js/script.js"></script>
