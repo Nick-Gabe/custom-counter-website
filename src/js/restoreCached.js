@@ -11,5 +11,8 @@
         inputFont.value = cachedFont
         counter.style.fontFamily = cachedFont
     }
-    if(cachedTextColor) counter.style.color = cachedTextColor
+    if(cachedTextColor) {
+        inputColor.value = cachedTextColor
+        counter.style.color = cachedTextColor
+    }
 })()

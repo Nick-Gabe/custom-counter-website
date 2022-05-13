@@ -25,6 +25,9 @@ const inputMax = document.getElementById('input-max')
                 // sets how many numbers can be incremented each time
                 incrementValue = Math.floor(newTimer / 125 - 1)
                 newTimer /= incrementValue
+            } else if (newTimer <= -250) {
+                incrementValue = Math.floor(newTimer / -125 + 1)
+                newTimer /= incrementValue
             }
 
             counterUpdater = setInterval(() => {
