@@ -49,7 +49,7 @@ const inputMax = document.getElementById('input-max')
                     // if nps < negative max, keep the counter at max
                     if (inputMax.value
                         && Number(counter.value) - 1 < -Math.abs(inputMax.value)) {
-                        counter.value = inputMax.value
+                        counter.value = -Math.abs(inputMax.value)
                         return
                     }
                     // else decrement it normally
