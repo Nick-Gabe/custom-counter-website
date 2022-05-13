@@ -22,11 +22,30 @@
     <main>
         <input type="number" id="counter" class="counter" value="0">
         <div class="inputs">
+            <select class="input-button font" type="color" name="text font" id="input-font">
+                <option value="Arial"> Arial </option>
+                <option value="Arial Black"> Arial Black </option>
+                <option value="Verdana"> Verdana </option>
+                <option value="Tahoma"> Tahoma </option>
+                <option value="Trebuchet MS"> Trebuchet MS </option>
+                <option value="Impact"> Impact </option>
+                <option value="Times New Roman"> Times New Roman </option>
+                <option value="Georgia"> Georgia </option>
+                <option value="Courier"> Courier </option>
+                <option value="Lucida Console"> Lucida Console </option>
+                <option value="Brush Script MT"> Brush Script MT </option>
+                <option value="Luminari"> Luminari </option>
+                <option value="Monospace"> Monospace </option>
+                <option value="Comic Sans MS"> Comic Sans MS </option>
+            </select>
             <input class="input-button color" type="color" name="text color" id="input-color">
             <input class="input-button" type="color" name="background" id="input-bg" value="#67d765">
             <div class="nps">
                 <button class="input-button icon" id="input-increase">+</button>
-                <p class="input-nps" id="input-nps" value="1">0ps</p>
+                <div class="input-nps container">
+                    <input class="input-nps" id="input-nps">
+                    <span>nps</span>
+                </div>
                 <button class="input-button icon" id="input-decrease">-</button>
             </div>
             <button class="input-button play paused" id="input-pause"></button>
@@ -34,6 +53,8 @@
         </div>
     </main>
     <script src="src/js/script.js"></script>
+    <script src="src/js/restoreCached.js"></script>
+    <script src="src/js/watchInputs.js"></script>
 </body>
 
 </html>

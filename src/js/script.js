@@ -1,113 +1,113 @@
-// execute in function to prevent global variables
-(function () {
-    const counter = document.getElementById('counter')
-    const inputBg = document.getElementById('input-bg')
-    const inputColor = document.getElementById('input-color')
-    const nps = document.getElementById('input-nps')
-    const inputIncrease = document.getElementById('input-increase')
-    const inputDecrease = document.getElementById('input-decrease')
-    const inputPause = document.getElementById('input-pause')
-    const inputMax = document.getElementById('input-max')
-    let isPaused = false
-    nps.value = 0
+const inputBg = document.getElementById('input-bg')
+const inputColor = document.getElementById('input-color')
+const inputFont = document.getElementById('input-font')
+const counter = document.getElementById('counter')
+const inputMax = document.getElementById('input-max')
 
-    // listen to the mouse scroll on nps and increases its value based on scrolling delta
-    nps.addEventListener('wheel', (event) => {
-        const DIVIDE_AMOUNT = 50;
-        nps.value += Math.floor(-event.deltaY / DIVIDE_AMOUNT)
-        nps.innerText = `${nps.value}ps`
-        updateCounter(nps.value)
-    });
+    // execute in function to prevent global variables
+    ; (function () {
+        const nps = document.getElementById('input-nps')
+        const npsContainer = document.querySelector('.input-nps.container')
+        const inputIncrease = document.getElementById('input-increase')
+        const inputDecrease = document.getElementById('input-decrease')
+        const inputPause = document.getElementById('input-pause')
+        let isPaused = false
+        nps.value = 0
 
-    // on bg color input, change the background color
-    inputBg.oninput = (x) => {
-        document.body.style.backgroundColor = x.target.value
-    }
-    
-    // on text color input, change the color of the counter
-    inputColor.oninput = (x) => {
-        counter.style.color = x.target.value
-    }
+        let counterUpdater;
+        function updateCounter(newTimer) {
+            // clear the previous setInterval and create a new one with a new timer
+            clearInterval(counterUpdater)
+            if (newTimer == 0) return
 
-    inputMax.oninput = (x) => {
-        inputMax.value = x.target.value
-    }
+            let incrementValue = 1
+            if (newTimer >= 250) {
+                // sets how many numbers can be incremented each time
+                incrementValue = Math.floor(newTimer / 125 - 1)
+                newTimer /= incrementValue
+            }
 
-    // on pause click, change the icon and pause/play
-    inputPause.onclick = (x) => {
-        if (x.target.classList.contains('paused')) {
-            // just some css to adjust the backgrounds
-            x.target.className = "input-button play playing"
-            x.target.style.backgroundImage = `url("src/resources/play-svgrepo-com.svg")`
-            x.target.style.backgroundSize = 'contain'
-            x.target.style.backgroundPositionX = '2px'
-            isPaused = true
-            updateCounter(0)
-        } else {
-            // just some css to adjust the backgrounds
-            x.target.className = "input-button play paused"
-            x.target.style.backgroundImage = `url("src/resources/pause-svgrepo-com.svg")`
-            x.target.style.backgroundSize = '30px'
-            x.target.style.backgroundPositionX = 'center'
-            isPaused = false
+            counterUpdater = setInterval(() => {
+                // if paused, stop the counter
+                if (isPaused) return updateCounter(0)
+
+                // if numbers per second is positive increment the counter
+                if (newTimer > 0) {
+                    // if nps > max, keep the counter at max
+                    if (inputMax.value
+                        && Number(counter.value) + 1 > inputMax.value) {
+                        counter.value = inputMax.value
+                        return
+                    }
+                    // else increment it normally
+                    counter.value = Math.floor(Number(counter.value) + incrementValue)
+                }
+                else {
+                    // if nps < negative max, keep the counter at max
+                    if (inputMax.value
+                        && Number(counter.value) - 1 < -Math.abs(inputMax.value)) {
+                        counter.value = inputMax.value
+                        return
+                    }
+                    // else decrement it normally
+                    counter.value = Math.floor(counter.value - incrementValue)
+                }
+
+                // 1000 / newTimer generates how many numbers need to be added per second
+            }, Math.round(1000 / Math.abs(newTimer)))
+        }
+
+        function pausePlay() {
+            // on pause click, change the icon and pause/play
+            if (inputPause.classList.contains('paused')) {
+                // just some css to adjust the backgrounds
+                inputPause.className = "input-button play playing"
+                inputPause.style.backgroundImage = `url("src/resources/play-svgrepo-com.svg")`
+                inputPause.style.backgroundSize = 'contain'
+                inputPause.style.backgroundPositionX = '2px'
+                isPaused = true
+                updateCounter(0)
+            } else {
+                // just some css to adjust the backgrounds
+                inputPause.className = "input-button play paused"
+                inputPause.style.backgroundImage = `url("src/resources/pause-svgrepo-com.svg")`
+                inputPause.style.backgroundSize = '30px'
+                inputPause.style.backgroundPositionX = 'center'
+                isPaused = false
+                updateCounter(nps.value)
+            }
+        }
+
+        // listen to the mouse scroll on nps and increases its value based on scrolling delta
+        npsContainer.addEventListener('wheel', (event) => {
+            nps.value = Math.floor(Number(nps.value) + -event.deltaY / 50)
+            updateCounter(nps.value)
+        });
+
+        function resizeNps() {
+            nps.style.width = nps.value.length + 1 + "ch"
+        }
+        resizeNps()
+
+        nps.oninput = () => {
+            resizeNps()
             updateCounter(nps.value)
         }
-    }
 
-    let counterUpdater;
+        document.addEventListener('keydown', (x) => x.code === "Space" && pausePlay())
+        inputPause.onclick = pausePlay
 
-    function updateCounter(newTimer) {
-        // clear the previous setInterval and create a new one with a new timer
-        clearInterval(counterUpdater)
-        if (newTimer == 0) return
-
-        counterUpdater = setInterval(() => {
-            // if paused, stop the counter
-            if (isPaused) return updateCounter(0)
-
-
-            // if numbers per second is positive increment the counter
-            if (newTimer > 0) {
-                // if nps > max, keep the counter at max
-                if (inputMax.value
-                    && Number(counter.value) + 1 > inputMax.value) {
-                    counter.value = inputMax.value
-                    return
-                }
-                // else increment it normally
-                counter.value = Math.floor(Number(counter.value) + 1)
-            }
-            else {
-                // if nps < negative max, keep the counter at max
-                if (inputMax.value
-                    && Number(counter.value) - 1 < -Math.abs(inputMax.value)) {
-                    counter.value = -inputMax.value
-                    return
-                }
-                // else decrement it normally
-                counter.value = Math.floor(counter.value - 1)
-            }
-
-            // 1000 / newTimer generates how many numbers need to be added per second
-            // 1000 / 2nps = 1 number every 500ms and so on
-        }, 1000 / Math.abs(newTimer))
-    }
-
-    // button on click, increase nps (ignore if its above 1000)
-    inputIncrease.onclick = () => {
-        if (nps.value >= 1000) return
-        nps.value = Math.floor(nps.value) + 1
-        nps.innerText = `${nps.value}ps`
-
-        updateCounter(nps.value)
-    }
-
-    // button on click, decrease nps (ignore if its below -1000)
-    inputDecrease.onclick = () => {
-        if (nps.value <= -1000) return
-        nps.value = Math.floor(nps.value) - 1
-        nps.innerText = `${nps.value}ps`
-
-        updateCounter(nps.value)
-    }
-})()
+        // button on click, increase nps
+        inputIncrease.onclick = () => {
+            nps.value = Math.floor(nps.value) + 1
+            resizeNps()
+            updateCounter(nps.value)
+        }
+        
+        // button on click, decrease nps
+        inputDecrease.onclick = () => {
+            nps.value = Math.floor(nps.value) - 1
+            resizeNps()
+            updateCounter(nps.value)
+        }
+    })()
